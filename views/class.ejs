@@ -1,0 +1,67 @@
+<%- include("partials/header.ejs", {title: `Class ${ session }`}) %> 
+
+
+<body>
+    <%- include("partials/nav.ejs") %> 
+    <div class="class-main">
+        <div class="class-head">
+            <div class="btn"><span>Session <%= session %></span></div>
+            <div class="btn"><span>Class  <%= clas %></span></div>
+        </div>
+        <a class="submit-fee" href="/sessions/<%= session %>/classes/<%= clas %>/submit-fee"><div class="btn"><span>Submit Fee</span></div></a>
+        <table class="class-table">
+            <thead>
+                <tr>
+                    <th colspan="16">Month Wise School Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="std-row">
+                    <td><span>Sr#</span></td>
+                    <td><span>Student Name<br>Father Name</span></td>
+                    <td>Ad. No</td>
+                    <td> <span> Mar. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Apr. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> May </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Jun. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Jul. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Aug. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Sep. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Oct. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Nov. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Dec. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Jan. </span> <br> Fine <br> S.Fund </td>
+                    <td> <span> Feb </span> <br> Fine <br> S.Fund </td>
+                    <td><span> Total </span></td>
+                </tr>
+                <% let i = 1; %> 
+                <% allStd.forEach(function(student){ %> 
+                    <tr>
+    
+                        <td><%= i++; %> </td>
+                        <td><%= student[1] %>  <br> <%= student[2] %>  </td>
+                        <td><%= student[0] %> </td>
+                        <% for (let j = 3; j < 15 ; j++){ %> 
+                            <% if (student[j] !== null) {%>
+                        <td><%= student[j][0] %>  <br> <%= student[j][1] %> <br> <%= student[j][2] %></td>
+                        <% } else{%>
+                            <td></td> 
+                        <% } %> 
+                        <% } %> 
+                        
+                        <td><%= student.at(-1) %> </td>
+                    </tr>
+                    <% }) %> 
+                <tr>
+                    <td colspan="3" style="text-align:center;"><span>Grand Total</span></td>
+                    <% monthSum.forEach(function(mont){ %> 
+                    <td><%= mont %> </td>
+                    <% }) %>
+                    <td><%= grandSum %> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

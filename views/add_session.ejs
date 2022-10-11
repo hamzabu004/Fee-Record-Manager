@@ -1,0 +1,18 @@
+<%- include("partials/header.ejs", {title: "Add Session"}) %> 
+<body style="font-family: 'Poppins';">
+    <%- include("partials/nav.ejs") %> 
+    <div class="session-main">
+        <p class="session-title">Adding Session</p>
+        <form action="/sessions/add-session" method="post">
+            <label for="from" >From</label>
+            <input onkeypress="return onlyNumberKey(event)" name="from" type="text" id="from" required>
+            <label for="to">To</label>
+            <input onkeypress="return onlyNumberKey(event)" name="to" type="text" id="to" required>
+            <button type="submit" class="btn">Add</button>
+        </form>
+       </div>
+       <script src="/script.js"></script>
+
+</body>
+
+</html>

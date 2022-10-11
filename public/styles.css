@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,400&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.nav {
+    display: flex;
+    width: 100%;
+    background-color: #313131;
+    color: aliceblue;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: 2.3rem;
+}
+
+.btn {
+    background: #313131;
+    border-radius: 14px;
+    font-family: "Poppins";
+    color: #ffffff;
+    font-size: 2rem;
+    padding: 3px 30px 3px 30px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #0d0d0d;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.home {
+    font-family: "Poppins";
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    /* width: 100%; */
+}
+
+.home-upper {
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 33rem;
+    text-align: center;
+}
+
+s .home-lower {
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 33rem;
+    text-align: center;
+}
+
+.home-lower div {
+    margin: 30px 0;
+}
+
+.home-upper p {
+    font-size: 5rem;
+}
+
+.line {
+    border-top: 2px solid #0d0d0d;
+    width: 60rem;
+}
+
+.session-title {
+    font-size: 3rem;
+}
+
+.session-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.session-main p {
+    margin: 5rem 5rem;
+    font-size: 5rem;
+}
+
+.session-main form {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+}
+
+.session-main form input {
+    font-size: 1.6rem;
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem;
+    font-weight: 500;
+}
+
+.session-main form label {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.session-page {
+    font-family: "Poppins";
+}
+
+.session-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.session-container>div {
+    margin: 10px 20px;
+}
+
+.session-container>a {
+    margin: 10px 20px;
+}
+
+.session-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    margin: 0rem;
+    font-weight: 600;
+}
+
+.add-student-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.student-main form label {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.student-main form input,
+select {
+    font-size: 1.6rem;
+    border-radius: 10px;
+    padding: 0.5rem 0.5rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.student-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.student-main p {
+    margin: 1.5rem 5rem;
+    font-size: 5rem;
+}
+
+.class-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "poppins";
+}
+
+.class-table>span {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr {
+    text-align: center;
+}
+
+span {
+    font-weight: 600;
+}
+
+td {
+    padding: 7px;
+}
+
+th {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.class-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10rem;
+    margin: 50px 0;
+}
+
+.submit-fee {
+    text-decoration: none;
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.session-main{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.add-std-btn{
+    margin: 3rem;
+    margin-bottom: 6rem;
+    font-weight: 600;
+    font-size: 2.8rem;
+}

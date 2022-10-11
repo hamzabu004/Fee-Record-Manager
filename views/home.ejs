@@ -1,0 +1,23 @@
+<%- include("partials/header.ejs", {title: "Home"}) %> 
+
+<body>
+    <%- include("partials/nav.ejs") %> 
+
+    <div class="home">
+        <div class="home-upper">
+            <p class="session-title">
+                Sessions
+            </p>
+            <a href="/sessions/add_session">
+                <div class="btn"><span>Add Session</span></div>
+            </a>
+        </div>
+        <div class="line"></div>
+        <div class="home-lower">
+            <% sessions.forEach(function (session){ %> 
+            <a href="/sessions/<%= session %>"><div class="btn"><span><%= session %> </span></div></a>
+                <% }) %> 
+        </div>
+    </div>
+</body>
+</html>
