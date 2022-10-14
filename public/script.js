@@ -6,6 +6,21 @@ function onlyNumberKey(evt) {
     return true;
 }
 
+function generatePDF() {
+    console.log("Generating PDF...");
+    window.jsPDF = window.jspdf.jsPDF;
+    window.html2canvas = html2canvas
+
+    var pdf = new jsPDF('p', 'pt', 'a4');
+    pdf.html(document.getElementById("main-data"), {
+        callback: function(doc) {
+            // Save the PDF
+            doc.save('sample-document.pdf');
+        }
+    
+    });
+   }
+
 $(document).ready(function() {
     $('#change-btn').prop('disabled', true);
     $("#a-new-pass").on('input' ,function(e) {
@@ -36,4 +51,8 @@ $(document).ready(function() {
     $('#logout-btn').on('click', function() {
         $('#logout-form').submit();
     });
+    $('#print-btn').click(function() {
+            console.log('Printing');
+        generatePDF();
+    })
 })

@@ -67,6 +67,7 @@
     background: #313131;
     border-radius: 14px;
     font-family: "Poppins";
+    font-weight: normal;
     color: #ffffff;
     font-size: 2rem;
     padding: 3px 30px 3px 30px;
@@ -248,7 +249,7 @@ tr {
 }
 
 span {
-    font-weight: 600;
+    font-weight: 400;
 }
 
 td {
@@ -362,6 +363,8 @@ ul {
 }
 
 .dropdown-item > a {
+    font-family: 'Poppins';
+    font-weight: normal;
     width: 100%;
     height: 100%;
     color:white;
@@ -390,4 +393,7 @@ a { color:white }
     font-size: 2rem;
     font-weight: 600;
     margin: 1rem 0 0 1rem;
+}
+.rm-s-btn{
+    background: rgb(226, 13, 13);
 }

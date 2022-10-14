@@ -8,7 +8,8 @@
             <div class="btn"><span>Class  <%= clas %></span></div>
         </div>
         <a class="submit-fee" href="/sessions/<%= session %>/classes/<%= clas %>/submit-fee"><div class="btn"><span>Submit Fee</span></div></a>
-        <table class="class-table">
+        <div class="btn"><span id="print-btn">Print</span></div>
+        <table class="class-table" id="main-data">
             <thead>
                 <tr>
                     <th colspan="16">Month Wise School Fee</th>
@@ -62,6 +63,7 @@
         </table>
     </div>
     <%- include("partials/foot.ejs") %>
+    
 </body>
 
 </html>

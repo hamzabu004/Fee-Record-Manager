@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const path = require('path');
+const fs = require('fs');
 
 //configuring passport for authentication
 app.use(session({
@@ -330,6 +331,33 @@ app.post('/change-pass', function(req, res) {
     })
 })
 
+
+// currently working
+app.get('/sessions/delete/:id', function(req, res) {
+    if (req.isAuthenticated()) {
+        let session = req.params.id;
+        console.log(session);
+
+    //remove session from sessions.db
+    let db = new sqlite3.Database(path.join(__dirname, `/db/sessions.db`), (err) => { });
+        db.get('SELECT * FROM session WHERE sName=?', [session], function (err, row) {
+            if (err ||!row){
+                console.log(err);
+                res.render('error', { error: "Could not Deleted"});
+            }
+            else{
+                db.run("DELETE FROM session WHERE sName=?", [session])
+                db.close();
+                //remove db file from db folder
+                fs.unlink(path.join(__dirname, `/db/${session}.db`), (err) => { })
+                res.redirect('/');    
+            }
+            
+        })
+    } 
+    else
+    res.redirect('/login')
+})
 
 app.listen(process.env.PORT || 5000);
 
