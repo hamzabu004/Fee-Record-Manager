@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs", {title: "Home"}) %> 
 
 <body>
-    <%- include("partials/nav.ejs") %> 
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
 
     <div class="home">
         <div class="home-upper">
@@ -19,5 +19,6 @@
                 <% }) %> 
         </div>
     </div>
+    <%- include("partials/foot.ejs") %>
 </body>
 </html>

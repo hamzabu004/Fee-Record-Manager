@@ -1,3 +1,31 @@
-<div class="nav">
-    <p>Tution Fee Manager</p>
-</div>
+<div class="nav ">
+    <div class="l">
+        <% if (nav){ %>
+        <div class="l-content"><a href="/"><img src="/home.png" alt=""></a></div>
+        <% } else { %>
+            <% }  %>
+    </div>
+    <div class="m">
+        <div class="m-content">
+            <p>Tution Fee Manager</p>
+        </div>
+
+    </div>
+    <div class="r nav-item has-dropdown">
+        <% if (nav){ %> 
+        <a href="#">More</a>
+        <ul class="dropdown">
+            <li class="dropdown-item">
+                <a href="/change-pass">Change Password</a>
+            </li>
+            <li class="dropdown-item">
+                <a href="javascript:document.getElementById('logout-form').submit()"; id="logout-btn">Logout</a>
+            </li>
+        </ul>
+        <% }else{ %>
+            <% }%>
+            
+        </div>
+    </div>
+    <form id="logout-form" action="/logout" method="post"></form>
+

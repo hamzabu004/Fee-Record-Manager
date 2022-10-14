@@ -1,6 +1,6 @@
 <%- include("partials/header.ejs", {title: "Add Student"}) %> 
 <body style="font-family: 'Poppins'">
-    <%- include("partials/nav.ejs") %> 
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
     <div class="student-main">
         <p class="session-title">Adding Student</p>
         <div class="class-head">
@@ -23,8 +23,6 @@
             <button type="submit" class="btn">Add</button>
         </form>
     </div>
-    <script src="/script.js"></script>
-
+    <%- include("partials/foot.ejs") %> 
 </body>
-
 </html>

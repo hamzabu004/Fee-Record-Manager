@@ -1,8 +1,7 @@
 <%- include("partials/header.ejs", {title: `Class ${ session }`}) %> 
 
-
 <body>
-    <%- include("partials/nav.ejs") %> 
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
     <div class="class-main">
         <div class="class-head">
             <div class="btn"><span>Session <%= session %></span></div>
@@ -62,6 +61,7 @@
             </tbody>
         </table>
     </div>
+    <%- include("partials/foot.ejs") %>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 
 <body style="font-family: 'Poppins'">
-    <%- include("partials/nav.ejs") %> 
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
 
     <div class="student-main">
         <p class="session-title">Submit Fee</p>
@@ -39,7 +39,8 @@
             <button type="submit" class="btn">Submit</button>
         </form>
     </div>
+    <%- include("partials/foot.ejs") %>
 </body>
-<script src="/script.js"></script>
+
 
 </html>
