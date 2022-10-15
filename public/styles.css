@@ -1,7 +1,14 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,400&display=swap"); */
 @font-face {
     font-family: 'Poppins';
-    src: url('font/Poppins-Medium.ttf');
+    src: url('font/Poppins-Regular.ttf');
+    font-weight: 400;
+    src: url('font/Poppins-SemiBold.ttf');
+    font-style: normal;
+    font-weight: 600;
+    /* font-style: normal; */
+    font-display: fallback;
+
 }
 * {
     padding: 0;

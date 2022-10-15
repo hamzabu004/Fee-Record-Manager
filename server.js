@@ -50,8 +50,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// test data
-let classes = ['Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+// classess 
+let classes = ['Montessori','Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 
 app.get('/login', function (req, res) {
