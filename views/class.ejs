@@ -5,10 +5,10 @@
     <div class="class-main">
         <div class="class-head">
             <div class="btn"><span>Session <%= session %></span></div>
-            <div class="btn"><span>Class  <%= clas %></span></div>
+            <div class="btn"><span><%= clas1 %></span></div>
         </div>
         <a class="submit-fee" href="/sessions/<%= session %>/classes/<%= clas %>/submit-fee"><div class="btn"><span>Submit Fee</span></div></a>
-        <div class="btn"><span id="print-btn">Print</span></div>
+        <div class="btn print-btn"><span id="print-btn">Print</span></div>
         <table class="class-table" id="main-data">
             <thead>
                 <tr>
@@ -18,7 +18,8 @@
             <tbody>
                 <tr class="std-row">
                     <td><span>Sr#</span></td>
-                    <td><span>Student Name<br>Father Name</span></td>
+                    <td><span>Modify</span></td>
+                    <td><span>Student Name<br><hr>Father Name</span></td>
                     <td>Ad. No</td>
                     <td> <span> Mar. </span> <br> Fine <br> S.Fund </td>
                     <td> <span> Apr. </span> <br> Fine <br> S.Fund </td>
@@ -37,9 +38,12 @@
                 <% let i = 1; %> 
                 <% allStd.forEach(function(student){ %> 
                     <tr>
-    
+                        
                         <td><%= i++; %> </td>
-                        <td><%= student[1] %>  <br> <%= student[2] %>  </td>
+                        <td><a href="/sessions/<%= session %>/classes/<%= clas %>/modify/<%= student[0] %>"><img id="edit-btn" title="Edit" style="width: 40px; margin: 0 1px 0 1px" src="/edit.png" alt=""></a>
+                            <a href="/sessions/<%= session %>/classes/<%= clas %>/rm/<%= student[0] %>"><img id="rm-btn" title="Delete" style="margin: 0 1px 0 1px; width: 40px;" src="/remove.png" alt=""></a>    
+                        </td>
+                        <td><%= student[1] %>  <br><hr> <%= student[2] %>  </td>
                         <td><%= student[0] %> </td>
                         <% for (let j = 3; j < 15 ; j++){ %> 
                             <% if (student[j] !== null) {%>

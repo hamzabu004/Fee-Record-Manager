@@ -51,7 +51,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // classess 
-let classes = ['Montessori','Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+let classes = ['Montessori', 'Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+let months = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
 
 
 app.get('/login', function (req, res) {
@@ -102,7 +103,7 @@ app.get("/sessions/:id", function (req, res) {
                 res.render("session", { session: req.params.id, classes: classes })
             }
             else {
-                res.render('error', {error: "Session doesn't exist"})
+                res.render('error', { error: "Session doesn't exist" })
             }
         })
     }
@@ -158,7 +159,7 @@ app.post("/sessions/:id/add-student", function (req, res) {
 
         let db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), sqlite3.OPEN_READWRITE, function (err) {
             if (err) {
-                res.render('error', {error: "Session doesn't exist"})
+                res.render('error', { error: "Session doesn't exist" })
             }
             else {
                 if (isNaN(clas))
@@ -186,7 +187,6 @@ app.get("/sessions/:id/classes/:clas/submit-fee", function (req, res) {
 
         db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), (err) => { });
         let stdNames = []
-        let months = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
         db.all(`SELECT * From ${clas}`, (err2, rows) => {
             for (let i = 0; i < rows.length; i++) {
                 stdNames.push(rows[i].sName)
@@ -218,7 +218,7 @@ app.post("/sessions/:id/classes/:clas/submit-fee", function (req, res) {
             db.run(`insert into fee_${clas2} (feeId, fee, fine, sFund) VALUES (?, ?, ?, ?)`, feeId, fee[0], fee[1], fee[2]);
             res.send("sended")
         } else {
-            res.render('error', {error: "No students is availble in class"})
+            res.render('error', { error: "No students is availble in class" })
         }
         db.close();
     }
@@ -232,18 +232,23 @@ app.get("/sessions/:id/classes/:clas", function (req, res) {
     if (req.isAuthenticated()) {
         let clas = req.params.clas;
         let clas2 = req.params.clas;
+        let clas3 = req.params.clas;
         let session = req.params.id;
 
         let allStd = [];
         //use db to get data and check its type
         let db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), sqlite3.OPEN_READWRITE, function (err) {
             if (err) {
-                res.render('error', {error: "Class doesn't exist"})
+                res.render('error', { error: "Class doesn't exist" })
                 throw err;
             }
             else {
-                if (!isNaN(clas))
+                if (!isNaN(clas)) {
+                    clas3 = "Class " + clas;
                     clas = "class_" + clas;
+                }
+                else if (isNaN(clas))
+                    clas3 = clas2.charAt(0).toUpperCase() + clas.slice(1);
 
 
                 db.all(`SELECT * From ${clas}`, (err, rows) => {
@@ -288,7 +293,7 @@ app.get("/sessions/:id/classes/:clas", function (req, res) {
                                     stdSum = 0;
                                 }
                                 grandSum = monthSum.reduce((partialSum, a) => partialSum + a, 0);
-                                res.render("class", { session: req.params.id, clas: req.params.clas, allStd, monthSum, grandSum })
+                                res.render("class", { session: req.params.id, clas1: clas3, clas: clas2, allStd, monthSum, grandSum })
                             }
                         })
                     }
@@ -297,8 +302,7 @@ app.get("/sessions/:id/classes/:clas", function (req, res) {
         })
         db.close();
     }
-    else 
-    {
+    else {
         res.redirect('/login')
     }
 })
@@ -313,18 +317,18 @@ app.get("/change-pass", function (req, res) {
     }
 });
 
-app.post('/change-pass', function(req, res) {
+app.post('/change-pass', function (req, res) {
     let all = req.body;
     console.log(all);
     let db = new sqlite3.Database(path.join(__dirname, `/db/data.db`), (err) => { });
     db.get('SELECT * FROM users WHERE password=?', [all.current_pass], function (err, row) {
-        if (err || !row){
+        if (err || !row) {
             res.send("Error Occured")
-        }else if (all.new_pass !== all.a_new_pass) {
+        } else if (all.new_pass !== all.a_new_pass) {
             res.send("Passwords doesnt match")
         }
-        else{
-            db.run("UPDATE users SET password = ? where password = ?",all.new_pass, all.current_pass)
+        else {
+            db.run("UPDATE users SET password = ? where password = ?", all.new_pass, all.current_pass)
             res.redirect("/")
             db.close();
         }
@@ -333,31 +337,95 @@ app.post('/change-pass', function(req, res) {
 
 
 // currently working
-app.get('/sessions/delete/:id', function(req, res) {
+app.get('/sessions/delete/:id', function (req, res) {
     if (req.isAuthenticated()) {
         let session = req.params.id;
         console.log(session);
 
-    //remove session from sessions.db
-    let db = new sqlite3.Database(path.join(__dirname, `/db/sessions.db`), (err) => { });
+        //remove session from sessions.db
+        let db = new sqlite3.Database(path.join(__dirname, `/db/sessions.db`), (err) => { });
         db.get('SELECT * FROM session WHERE sName=?', [session], function (err, row) {
-            if (err ||!row){
+            if (err || !row) {
                 console.log(err);
-                res.render('error', { error: "Could not Deleted"});
+                res.render('error', { error: "Could not Deleted" });
             }
-            else{
+            else {
                 db.run("DELETE FROM session WHERE sName=?", [session])
                 db.close();
                 //remove db file from db folder
                 fs.unlink(path.join(__dirname, `/db/${session}.db`), (err) => { })
-                res.redirect('/');    
+                res.redirect('/');
             }
-            
+
         })
-    } 
+    }
     else
-    res.redirect('/login')
+        res.redirect('/login')
 })
+
+
+//remove std
+app.get('/sessions/:session/classes/:class/rm/:sId', function (req, res) {
+    if (req.isAuthenticated()) {
+        let db = new sqlite3.Database(path.join(__dirname, `/db/${req.params.session}.db`), (err) => { });
+        let clas = req.params.class;
+        if (!isNaN(clas))
+            clas = "class_" + clas;
+
+        db.run(`DELETE FROM ${clas} WHERE adNo=?`, [req.params.sId]);
+        db.close();
+        res.redirect("/sessions/" + req.params.session + "/classes/" + req.params.class);
+        //remove db file from db folder
+    }
+})
+
+
+//render modify studenyt page
+app.get('/sessions/:session/classes/:class/modify/:sId', function (req, res) {
+    if (req.isAuthenticated()) {
+        //remmain to settle db
+        let db = new sqlite3.Database(path.join(__dirname, `/db/${req.params.session}.db`), (err) => { });
+        db.get(`SELECT * FROM ${req.params.class} WHERE adNo=?`, [req.params.sId], function (err, row) {
+            if (err || !row)
+                res.redirect("/sessions/" + req.params.session + "/classes/" + req.params.class);
+            else {
+                let std = [row.adNo, row.sName, row.fName]
+                res.render('modify', { session: req.params.session, clas: capitalize(req.params.class), classes, std })
+            }
+        })
+
+    }  
+})
+
+//modify student
+app.post("/sessions/:session/classes/:class/modify-std", function (req, res) {
+    if (req.isAuthenticated()) {
+        let Name = req.body.name;
+        let FName = req.body.fname;
+        let adNo = req.body.add_no;
+        let clas = req.params.class;
+        let session = req.params.session;
+        console.log(req.body);
+        let db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), sqlite3.OPEN_READWRITE, function (err) {
+            if (err) {
+                res.render('error', { error: "Session doesn't exist" })
+            }
+            else {
+                if (!isNaN(clas))
+                    clas = "class_" + clas;
+                
+                db.run(`update ${clas} SET  sName =?, adNo= ?, fName = ? where adNo = ? COLLATE NOCASE`, Name, adNo, FName, adNo)
+                db.run(`update ${clas} SET  adNo= ? where sName =? COLLATE NOCASE`, adNo, Name)
+                db.close();
+                res.redirect("/sessions/" + req.params.session + "/classes/" + req.params.class);
+            }
+        })
+    }
+    else {
+        res.redirect('/login')
+    }
+})
+
 
 app.listen(process.env.PORT || 5000);
 
@@ -381,4 +449,11 @@ function getSession(callback) {
             }
         );
     });
+}
+
+function capitalize(str) {
+    if (isNaN(str))
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    else
+        return str;
 }
