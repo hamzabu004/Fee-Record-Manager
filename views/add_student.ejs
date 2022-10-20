@@ -17,12 +17,30 @@
             <label for="class-names">Class</label>
             <select id="class-names" form="add-std" name="class">
                 <% classes.forEach(function (clas){ %> 
-                <option value="<%= clas %>"><%= clas %></option>        
-                <% }) %> 
+                    <option value="<%= clas %>"><%= clas %></option>        
+                    <% }) %> 
+            </select>
+            <label for="section-names">Section</label>
+            <select id="section-names" form="add-std" name="section">
+                <% let sec = ['A', 'B', 'C', 'D']; for(let i = 0; i < sec.length; i++){ %>               
+                <option value="<%= sec[i] %> "><%=  sec[i] %> </option>
+                    <% } %> 
             </select>
             <button type="submit" class="btn">Add</button>
         </form>
     </div>
     <%- include("partials/foot.ejs") %> 
+    <script>
+        $(document).ready(function(){
+            $("#class-names").on('change', function(e){
+                if (e.target.value >= 8 && $("#section-names").children().length >= 4){
+                    console.log(e.target.value);
+                    $("#section-names").children().last().remove();}
+                else if ($("#section-names").children().length < 4 && !(e.target.value >= 8)){
+                    $("#section-names").append(`<option value="D">D</option>`);
+                }
+            });
+        })
+    </script>
 </body>
 </html>

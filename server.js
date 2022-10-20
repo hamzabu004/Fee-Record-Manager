@@ -8,7 +8,8 @@ const LocalStrategy = require('passport-local');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const path = require('path');
-const fs = require('fs');
+
+let fs = require('fs')
 
 //configuring passport for authentication
 app.use(session({
@@ -51,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // classess 
-let classes = ['Montessori', 'Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+let classes = ['Playgroup', 'Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 let months = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
 
 
@@ -130,15 +131,13 @@ app.post("/sessions/add-session", function (req, res) {
             db.run(`CREATE TABLE fee_${classes[i].toLowerCase()} (feeId text, fee int, fine int, sFund int)`, () => { });
         }
         for (let i = 0; i < classes.length; i++) {
-            if (isNaN(classes[i])) {
-                console.log(classes[i])
-                db.run(`Create Table ${classes[i].toLowerCase()} (adNo int, sName text, fName text, mar text, apr text, may text, jun text, jul text, aug text, sep text, oct text, nov text, dec text, jan text, feb text)`, () => { })
+            let clas = classes[i].toLowerCase();
+            if (!isNaN(clas)) {
+                clas = "class_" + clas;
             }
-            else
-                db.run(`Create Table ${"class" + "_" + classes[i].toLowerCase()} (adNo int, sName text, fName text, mar text, apr text, may text, jun text, jul text, aug text, sep text, oct text, nov text, dec text, jan text, feb text)`, () => { })
+            db.run(`Create Table ${clas} (adNo int, sName text, fName text, section text, mar text, apr text, may text, jun text, jul text, aug text, sep text, oct text, nov text, dec text, jan text, feb text)`, () => { })
         }
         db = new sqlite3.Database(path.join(__dirname, `/db/sessions.db`), (err) => { });
-        console.log(sessionName)
         db.run(`INSERT INTO session (sName) VALUES(?)`, sessionName);
         res.redirect("/")
         db.close();
@@ -156,16 +155,16 @@ app.post("/sessions/:id/add-student", function (req, res) {
         let adNo = req.body.add_no;
         let clas = req.body.class.toLowerCase();
         let session = req.params.id;
-
+        let section = req.body.section;
         let db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), sqlite3.OPEN_READWRITE, function (err) {
             if (err) {
                 res.render('error', { error: "Session doesn't exist" })
             }
             else {
-                if (isNaN(clas))
-                    db.run(`INSERT INTO ${clas} (sName, fName, adNo) VALUES(?, ?, ?);`, Name, FName, adNo);
-                else
-                    db.run(`INSERT INTO ${"class_" + clas} (sName, fName, adNo) VALUES(?, ?, ?);`, Name, FName, adNo);
+                if (!isNaN(clas))
+                    clas = "class_" + clas;
+                    
+                db.run(`INSERT INTO ${clas} (sName, fName, adNo, section) VALUES(?, ?, ?, ?);`, Name, FName, adNo, section);
                 res.redirect("/sessions/" + session)
             }
         })
@@ -216,7 +215,7 @@ app.post("/sessions/:id/classes/:clas/submit-fee", function (req, res) {
             let db = new sqlite3.Database(path.join(__dirname, `/db/${session}.db`), (err) => { });
             db.run(`update ${clas} SET  (${month})=? where sName = ? COLLATE NOCASE`, feeId, req.body.student)
             db.run(`insert into fee_${clas2} (feeId, fee, fine, sFund) VALUES (?, ?, ?, ?)`, feeId, fee[0], fee[1], fee[2]);
-            res.send("sended")
+            res.redirect(`/sessions/${session}/classes/${clas2}`)
         } else {
             res.render('error', { error: "No students is availble in class" })
         }
@@ -278,13 +277,13 @@ app.get("/sessions/:id/classes/:clas", function (req, res) {
                                     feeIds.push(Object.values(FEE[i]))
                                 }
                                 for (let i = 0; i < allStd.length; i++) {
-                                    for (let j = 3; j < 15; j++) {
+                                    for (let j = 4; j < 16; j++) {
                                         if (allStd[i][j] !== null) {
                                             for (let k = 0; k < feeIds.length; k++) {
                                                 if (allStd[i][j] === feeIds[k][0]) {
                                                     allStd[i][j] = feeIds[k].slice(1)
                                                     stdSum += feeIds[k].slice(1).reduce((partialSum, a) => partialSum + a, 0)
-                                                    monthSum[j - 3] += feeIds[k].slice(1).reduce((partialSum, a) => partialSum + a, 0);
+                                                    monthSum[j - 4] += feeIds[k].slice(1).reduce((partialSum, a) => partialSum + a, 0);
                                                 }
                                             }
                                         }
@@ -336,7 +335,6 @@ app.post('/change-pass', function (req, res) {
 })
 
 
-// currently working
 app.get('/sessions/delete/:id', function (req, res) {
     if (req.isAuthenticated()) {
         let session = req.params.id;
@@ -353,7 +351,11 @@ app.get('/sessions/delete/:id', function (req, res) {
                 db.run("DELETE FROM session WHERE sName=?", [session])
                 db.close();
                 //remove db file from db folder
-                fs.unlink(path.join(__dirname, `/db/${session}.db`), (err) => { })
+                
+                fs.unlink(path.join(__dirname, `/db/${session}.db`), (err) => { 
+                    if(err) 
+                        console.log(err+'kaka');
+                 })
                 res.redirect('/');
             }
 
@@ -394,7 +396,7 @@ app.get('/sessions/:session/classes/:class/modify/:sId', function (req, res) {
             }
         })
 
-    }  
+    }
 })
 
 //modify student
@@ -413,7 +415,7 @@ app.post("/sessions/:session/classes/:class/modify-std", function (req, res) {
             else {
                 if (!isNaN(clas))
                     clas = "class_" + clas;
-                
+
                 db.run(`update ${clas} SET  sName =?, adNo= ?, fName = ? where adNo = ? COLLATE NOCASE`, Name, adNo, FName, adNo)
                 db.run(`update ${clas} SET  adNo= ? where sName =? COLLATE NOCASE`, adNo, Name)
                 db.close();
