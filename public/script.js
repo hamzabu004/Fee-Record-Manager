@@ -18,7 +18,7 @@ function generatePDF() {
             // Save the PDF
             doc.save('sample-document.pdf');
         },
-        windowWidth: 650,
+        windowWidth: 620,
         x: 20,
         y: 20,
         width: 540
@@ -59,5 +59,6 @@ $(document).ready(function() {
     $('#print-btn').click(function() {
             console.log('Printing');
         generatePDF();
+        $("#main-data").children(".A").remove();
     })
 })

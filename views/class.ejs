@@ -15,7 +15,7 @@
                     <th colspan="18">Month Wise School Fee</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="t-body">
                 <tr class="std-row">
                     <td><span>Sr#</span></td>
                     <td><span>Modify</span></td>
@@ -38,7 +38,7 @@
                 </tr>
                 <% let i = 1; %> 
                 <% allStd.forEach(function(student){ %> 
-                    <tr>
+                    <tr class="<%=student[3]%>">
                         
                         <td><%= i++; %> </td>
                         <td><a href="/sessions/<%= session %>/classes/<%= clas %>/modify/<%= student[0] %>"><img id="edit-btn" title="Edit" style="width: 40px; margin: 0 1px 0 1px" src="/edit.png" alt=""></a>
@@ -46,33 +46,36 @@
                         </td>
                         <!-- student name/fnae/addno -->
                         <td><%= student[1] %><br><hr><%= student[2] %></td>
-                        <td><%= student[0] %> </td>
+                        <td><%= student[0] %></td>
                         <!-- section -->
                         <td><%= student[3] %></td>
                         <!-- fee -->
                         <% for (let j = 4; j < 16 ; j++){ %> 
                             <% if (student[j] !== null) {%>
-                        <td><%= student[j][0] %>  <br> <%= student[j][1] %> <br> <%= student[j][2] %></td>
+                        <td><%= student[j][0] %><br><%= student[j][1] %><br><%= student[j][2] %></td>
                         <% } else{%>
                             <td></td> 
                         <% } %> 
                         <% } %> 
                         
-                        <td><%= student.at(-1) %> </td>
+                        <td><%= student.at(-1) %></td>
                     </tr>
                     <% }) %> 
                 <tr>
                     <td colspan="5" style="text-align:center;"><span>Grand Total</span></td>
                     <% console.log(monthSum); monthSum.forEach(function(mont){ %> 
-                    <td><%= mont %> </td>
+                    <td><%= mont %></td>
                     <% }) %>
-                    <td><%= grandSum %> </td>
+                    <td id="g-total"><%= grandSum %></td>
                 </tr>
             </tbody>
         </table>
     </div>
     <%- include("partials/foot.ejs") %>
-    
+    <script>
+        let table = document.getElementById("main-data")
+
+    </script>
 </body>
 
 </html>
