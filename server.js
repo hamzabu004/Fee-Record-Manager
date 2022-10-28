@@ -53,7 +53,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // classess 
 let classes = ['Playgroup', 'Nursery', 'Prep', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-let months = ["Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"];
+let months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb","Mar"];
 
 
 app.get('/login', function (req, res) {
@@ -135,7 +135,7 @@ app.post("/sessions/add-session", function (req, res) {
             if (!isNaN(clas)) {
                 clas = "class_" + clas;
             }
-            db.run(`Create Table ${clas} (adNo int, sName text, fName text, section text, mar text, apr text, may text, jun text, jul text, aug text, sep text, oct text, nov text, dec text, jan text, feb text)`, () => { })
+            db.run(`Create Table ${clas} (adNo int, sName text, fName text, section text, apr text, may text, jun text, jul text, aug text, sep text, oct text, nov text, dec text, jan text, feb text, mar text)`, () => { })
         }
         db = new sqlite3.Database(path.join(__dirname, `/db/sessions.db`), (err) => { });
         db.run(`INSERT INTO session (sName) VALUES(?)`, sessionName);

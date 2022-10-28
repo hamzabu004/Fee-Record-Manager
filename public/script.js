@@ -21,8 +21,7 @@ function generatePDF() {
         windowWidth: 620,
         x: 20,
         y: 20,
-        width: 540
-    
+        width: 470
     });
    }
 
