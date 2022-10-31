@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs", {title: "Login Page"}) %> 
+
+<body style="font-family: 'Poppins';">
+    <%- include("partials/nav.ejs", {nav: 0}) %> 
+    <div class="session-main">
+        <p class="session-title">Login</p>
+        <form id="login-form" action="/login" method="post">
+            <input placeholder="username" name="username" type="text" id="username" required>
+            <input placeholder="password" name="password" type="password" id="password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+       </div>
+       <%- include("partials/foot.ejs") %>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs", {title: `Session ${ session }`}) %>
+
+    <body class="session-page">
+        <%- include("partials/nav.ejs", {nav: 1}) %>
+            <div class="session-main">
+                <div class="session-head">
+                    <p>Session: &nbsp;</p>
+                    <p>
+                        <%= session %>
+                    </p>
+                </div>
+
+                <div >
+                    <a href="/sessions/delete/<%= session %>">
+                        <div class="btn rm-s-btn"><span>Remove Session</span></div>
+                    </a>
+                </div>
+                <div >
+                    <a href="/sessions/<%= session %>/add-student">
+                        <div class="btn add-std-btn"><span>Add Student</span></div>
+                    </a>
+                </div>
+
+                <div class="session-container">
+                    <% classes.forEach(function (clas){ %>
+                        <% if(isNaN(clas)){ %>
+                            <a href="/sessions/<%= session %>/classes/<%= clas.toLowerCase() %>  ">
+                                <div class="btn">
+                                    <span>
+                                        <%= clas %>
+                                    </span>
+                                </div>
+                            </a>
+                            <% }else{ %>
+                                <a href="/sessions/<%= session %>/classes/<%= clas%>">
+                                    <div class="btn"><span>Class &nbsp;<%= clas %> </span></div>
+                                </a>
+                                <% } %>
+                                    <% }) %>
+                </div>
+            </div>
+            <%- include("partials/foot.ejs") %>
+    </body>
+
+    </html>

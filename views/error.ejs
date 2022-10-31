@@ -1,0 +1,14 @@
+<%- include("partials/header.ejs", {title: "Error"}) %>
+
+<body style="font-family: 'Poppins';">
+    <%- include("partials/nav.ejs", {nav: 0}) %>
+
+    <p class="err-text"><%= error %> </p>
+    <script>
+        setTimeout(function(){
+            window.location = window.location.host;
+        }, 3000)
+    
+    </script>
+</body>
+</html>

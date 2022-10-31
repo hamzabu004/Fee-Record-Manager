@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs", {title: "Submit Fee"}) %> 
+
+
+<body style="font-family: 'Poppins'">
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
+
+    <div class="student-main">
+        <p class="session-title">Submit Fee</p>
+        <div class="class-head">
+            <div class="btn"><span>Session <%= session %> </span></div>
+            <div class="btn"><span>Class <%= clas %></span></div>
+        </div>
+        <form id="fee-form" class="add-student-form" action="/sessions/<%= session %>/classes/<%= clas %>/submit-fee" method="post">
+            
+            <label for="session-name">Student Name</label>
+            <select id="session-name" form="fee-form" name="student">
+                <% studentList.forEach(function(student){ %> 
+                <option value="<%= student %>"><%= student %> </option>
+                <% }) %>         
+            </select>
+            
+            <label for="fee">Fee</label>
+            <input onkeypress="return onlyNumberKey(event)" name="fee" type="text" id="fee" required />
+            
+            <label for="fine">Fine</label>
+            <input onkeypress="return onlyNumberKey(event)" name="fine" type="text" id="fine" required />
+            
+            <label for="student-fund">Student Fund</label>
+            <input onkeypress="return onlyNumberKey(event)" name="student_fund" type="text" id="student-fund" required />
+            
+            <label for="month">Month</label>
+            <select id="month" form="fee-form" name="month">
+                
+                <% months.forEach(function(student){ %> 
+                <option value="<%= student %>"><%= student %> </option>
+                <% }) %>         
+            </select>
+                
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+    <%- include("partials/foot.ejs") %>
+</body>
+
+
+</html>

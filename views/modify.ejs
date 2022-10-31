@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs", {title: "Modify Student"}) %> 
+<body style="font-family: 'Poppins'">
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
+    <div class="student-main">
+        <p class="session-title">Update Student</p>
+        <div class="class-head">
+            <div class="btn"><span>Session <%= session %> </span></div>
+            <div class="btn"><span> <%= clas %> </span></div>
+
+        </div>
+        <form id="add-std" class="add-student-form" action="/sessions/<%= session %>/classes/<%= clas.toLowerCase() %>/modify-std" method="post">
+            <label for="name">Name</label>
+            <input value="<%= std[1] %>" name="name" type="text" id="name" required />
+            <label for="fname">Father Name</label>
+            <input value="<%= std[2] %>" name="fname" type="text" id="fname" required />
+            <label for="add-no">Admission No</label>
+            <input value="<%= std[0] %>" onkeypress="return onlyNumberKey(event)" name="add_no" type="text" id="add-no" required />
+            
+            </select>
+            <button type="submit" class="btn">Update</button>
+        </form>
+    </div>
+    <%- include("partials/foot.ejs") %> 
+</body>
+</html>

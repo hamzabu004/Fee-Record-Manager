@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs", {title: "Add Student"}) %> 
+<body style="font-family: 'Poppins'">
+    <%- include("partials/nav.ejs", {nav: 1}) %> 
+    <div class="student-main">
+        <p class="session-title">Adding Student</p>
+        <div class="class-head">
+            <div class="btn"><span>Session <%= session %> </span></div>
+
+        </div>
+        <form id="add-std" class="add-student-form" action="/sessions/<%= session %>/add-student" method="post">
+            <label for="name">Name</label>
+            <input name="name" type="text" id="name" required />
+            <label for="fname">Father Name</label>
+            <input name="fname" type="text" id="fname" required />
+            <label for="add-no">Admission No</label>
+            <input onkeypress="return onlyNumberKey(event)" name="add_no" type="text" id="add-no" required />
+            <label for="class-names">Class</label>
+            <select id="class-names" form="add-std" name="class">
+                <% classes.forEach(function (clas){ %> 
+                    <option value="<%= clas %>"><%= clas %></option>        
+                    <% }) %> 
+            </select>
+            <label for="section-names">Section</label>
+            <select id="section-names" form="add-std" name="section">
+                <% let sec = ['A', 'B', 'C', 'D']; for(let i = 0; i < sec.length; i++){ %>               
+                <option value="<%= sec[i] %> "><%=  sec[i] %> </option>
+                    <% } %> 
+            </select>
+            <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+    <%- include("partials/foot.ejs") %> 
+    <script>
+        $(document).ready(function(){
+            $("#class-names").on('change', function(e){
+                if (e.target.value >= 8 && $("#section-names").children().length >= 4){
+                    console.log(e.target.value);
+                    $("#section-names").children().last().remove();}
+                else if ($("#section-names").children().length < 4 && !(e.target.value >= 8)){
+                    $("#section-names").append(`<option value="D">D</option>`);
+                }
+            });
+        })
+    </script>
+</body>
+</html>
