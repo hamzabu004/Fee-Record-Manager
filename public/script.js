@@ -8,25 +8,27 @@ function onlyNumberKey(evt) {
 
 function generatePDF() {
     console.log("Generating PDF...");
-    html2pdf().set({
-        pagebreak: { mode: 'avoid-all', after: '#page2el' }
+    // html2pdf().set({
+    //     pagebreak: { mode: 'avoid-all', after: '#page2el' }
 
-    });
-    var element = document.getElementById('main-data');
-    var opt = {
-        margin: 0,
-        filename: 'myfile.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 1 , scrollY: 0  },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'landscape' }
-    };
+    // });
+    // var element = document.getElementById('main-data');
+    // var opt = {
+    //     margin: 0,
+    //     filename: 'myfile.pdf',
+    //     image: { type: 'jpeg', quality: 1 },
+    //     html2canvas: { scale: 1},
+    //     jsPDF: { unit: 'pt', format: 'a4', orientation: 'landscape' }
+    // };
 
-    // New Promise-based usage:
-    html2pdf().set(opt).from(element).save();
-    // window.jsPDF = window.jspdf.jsPDF;
-    // window.html2canvas = html2canvas
+    // // New Promise-based usage:
+    // html2pdf().set(opt).from(element).save();
 
-    // var pdf = new jsPDF('l', 'pt', 'a4', true);
+
+    window.jsPDF = window.jspdf.jsPDF;
+    window.html2canvas = html2canvas
+
+    var pdf = new jsPDF('l', 'pt', 'a4', true);
     // pdf.html(document.getElementById("main-data"), {
     //     scalewidth: 0.5,
     //     callback: function(doc) {
@@ -38,6 +40,10 @@ function generatePDF() {
     //     y: 20,
     //     width: 470
     // });
+    let clas = document.getElementById('clas').innerHTML;
+    pdf.text(50, 30, "Class: "+clas);
+    pdf.autoTable({ html: '#main-data', theme: 'grid', startY: 50, styles: { halign: 'center', cellWidth: 'auto', cellHeight: 'auto', theme: 'grid' } })
+    pdf.save('table.pdf')
 }
 
 $(document).ready(function () {

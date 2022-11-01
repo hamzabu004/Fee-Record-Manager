@@ -14,9 +14,8 @@
     margin: 0;
 }
 table { page-break-inside:auto }
-    tr    { page-break-inside:avoid; page-break-after:auto }
-    thead { display:table-header-group }
-    tfoot { display:table-footer-group }
+    tr    { page-break-inside:avoid; page-break-after:auto ; page-break-before: auto;}
+
 .nav {
     padding: 0 10px;
     display: flex;
@@ -245,9 +244,7 @@ select {
     font-weight: 600;
     text-align: center;
 }
-.class-table{
-    margin-left: 5px;
-}
+
 table,
 th,
 td {
