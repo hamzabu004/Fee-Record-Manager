@@ -7,7 +7,7 @@
     <div class="student-main">
         <p class="session-title">Submit Fee</p>
         <div class="class-head">
-            <div class="btn"><span>Session <%= session %> </span></div>
+            <div class="btn"><a href="/sessions/<%= session %>"><span>Session <%= session %></span></a></div>
             <div class="btn"><span>Class <%= clas %></span></div>
         </div>
         <form id="fee-form" class="add-student-form" action="/sessions/<%= session %>/classes/<%= clas %>/submit-fee" method="post">
@@ -19,8 +19,8 @@
                 <% }) %>         
             </select>
             
-            <label for="fee">Fee</label>
-            <input onkeypress="return onlyNumberKey(event)" name="fee" type="text" id="fee" required />
+
+            <input name="fee" value="0" type="text" id="fee" style="display: none;"/>
             
             <label for="fine">Fine</label>
             <input onkeypress="return onlyNumberKey(event)" name="fine" type="text" id="fine" required />

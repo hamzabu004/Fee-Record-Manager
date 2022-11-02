@@ -4,7 +4,7 @@
     <%- include("partials/nav.ejs", {nav: 1}) %> 
     <div class="class-main">
         <div class="class-head">
-            <div class="btn"><span>Session <%= session %></span></div>
+            <div class="btn"><a href="/sessions/<%= session %>"><span>Session <%= session %></span></a></div>
             <div class="btn"><span id="clas"><%= clas1 %></span></div>
         </div>
         <a class="submit-fee" href="/sessions/<%= session %>/classes/<%= clas %>/submit-fee"><div class="btn"><span>Submit Fee</span></div></a>
@@ -12,7 +12,7 @@
         <table class="class-table" id="main-data">
             <thead>
                 <tr>
-                    <th colspan="18">Month Wise School Fee</th>
+                    <th colspan="18" id="table-title">Month Wise School Fee</th>
                 </tr>
             </thead>
             <tbody class="t-body">
@@ -67,7 +67,7 @@
                     </tr>
                     <% }) %> 
                 <tr>
-                    <td colspan="5" style="text-align:center;"><span>Grand Total</span></td>
+                    <td colspan="5" style="text-align:center;" id="grnd-title"><span>Grand Total</span></td>
                     <% console.log(monthSum); monthSum.forEach(function(mont){ %> 
                     <td><%= mont %></td>
                     <% }) %>
