@@ -41,8 +41,14 @@ function generatePDF() {
     //     width: 470
     // });
     let clas = document.getElementById('clas').innerHTML;
-    pdf.text(50, 30, "Class: "+clas);
-    pdf.autoTable({ html: '#main-data', theme: 'grid', startY: 50, styles: { halign: 'center', cellWidth: 'auto', cellHeight: 'auto', theme: 'grid' } })
+    pdf.text(50, 30, "Class: " + clas);
+    let colStyle = {
+        1: { columnWidth: 0 },
+        2: { columnWidth: 80 },
+        3: { columnWidth: 50 },
+        17: { columnWidth: 80 }, 
+    }
+    pdf.autoTable({ html: '#main-data', columnStyles: colStyle, theme: 'grid', startY: 50,margin: 0, styles: { cellWidth: 'auto', halign: 'center' } })
     pdf.save('table.pdf')
 }
 
