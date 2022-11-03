@@ -20,10 +20,10 @@
             </select>
             
 
-            <input name="fee" value="0" type="text" id="fee" style="display: none;"/>
+            <label for="fee">Fee</label>
+            <input name="fee"  type="text" id="fee" onkeypress="return onlyNumberKey(event)"/>
             
-            <label for="fine">Fine</label>
-            <input onkeypress="return onlyNumberKey(event)" name="fine" type="text" id="fine" required />
+            <input style="display: none;" value="0" onkeypress="return onlyNumberKey(event)" name="fine" type="text" id="fine" required />
             
             <label for="student-fund">Student Fund</label>
             <input onkeypress="return onlyNumberKey(event)" name="student_fund" type="text" id="student-fund" required />
